@@ -1,0 +1,105 @@
+<link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet'>
+<style>
+
+.navbar .nav > li > a {
+  color: #ffffff;
+}
+.navbar .nav > li > a:hover{
+  color: #173585;
+}
+
+.table-centered-data td{
+	text-align: center;
+}
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 18px */
+@media screen and (min-width: 601px) {
+  div {
+    font-size: 18px !important;
+  }
+  .btn{
+    font-size: 18px;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 14px */
+@media screen and (max-width: 600px) {
+  div {
+    font-size: 14px !important;
+  }
+  .btn{
+    font-size: 14px;
+  }
+}
+body{
+font-family: 'Bitter';
+}
+.btn-main{
+    color: #fff; 
+    background-color: #3F4591;
+    border-color: #2e6da4;
+}
+.btn-main:hover{
+    color: #fff;
+    background-color: #16125C;
+    border-color: #2e6da4;
+}
+.btn-main:focus{
+color: #fff;
+}
+tiny{
+font-size: 10px !important;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+  margin: auto;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #3F4591;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #3F4591;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+	</style>

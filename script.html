@@ -1,0 +1,492 @@
+<script>
+
+    $(document).ready(function() {
+    
+    $(document).keypress(function (e) {
+        var key = e.which;
+         if(key == 13)  // the enter key code
+         {
+            $('#generate').click();
+             return false;  
+          }
+    });
+
+    $('.changeItem').change(function(){
+        $('#generate').click();
+    });
+    
+    $('#video-button').hide();
+    
+    var letterOptions = ["x","y","z","a","b","c","d","f","g","h","j","k","m","n","p","q","r","v","w"];
+    
+    var testing = false;
+    $('#generate').click(function(){
+        if(!testing){$("#answer").hide(); $("#show-answer").val("Show Answer");}
+
+        var type;
+        // handles the formatting for selecting any type
+        if($("#type").val()=="any"){type = random(1,10);}
+        else{type = parseInt($("#type").val())}
+        
+        // default 
+        var letter = "x";
+        
+        // otherwise use any letter from options
+        if($("#var-toggle").is(':checked')){   letter = letterOptions[random(0,letterOptions.length-1)].toString();  }
+        
+        // default is equation
+        var ineq = false;
+        
+        // otherwise make inequality
+        if($("#ineq-toggle").is(':checked')){   ineq = true; }
+        
+        
+        // default option is integers
+        var rat = false;
+        
+        // otherwise use decimals
+        if($("#dec-toggle").is(':checked')){   rat = true; }
+        
+        // generate the equation/inequality
+        generate(type,ineq,letter,rat);  
+        
+     });
+   
+    $("#show-answer").click(function(){
+       if($("#answer").is(":hidden") ){
+          $("#answer").show();
+          $("#show-answer").val("Hide Answer");
+       } else{
+         $("#answer").hide();
+         $("#show-answer").val("Show Answer");
+        }
+    });
+    
+    if(testing){ $("#answer").show();}
+
+	});
+    
+    // main function to generate the problem and answer
+	function generate(type, inequality,letter,rat){
+       
+       var videoLinks = ["https://www.youtube.com/watch?v=aLuWOlSr7Kg",
+                         "https://www.youtube.com/watch?v=4216xVziW_8",
+                         "https://www.youtube.com/watch?v=MHggTvUEO0o",
+                         "https://www.youtube.com/watch?v=RadkSIQp6z0",
+                         "https://www.youtube.com/watch?v=Qcd4u0_U8PQ",
+                         "https://www.youtube.com/watch?v=zyVIg3-Ag-E",
+                         "https://www.youtube.com/watch?v=w2wJsgpZSWo",
+                         "https://www.youtube.com/watch?v=4utHgqjYonU",
+                         "https://www.youtube.com/watch?v=o0EqTOYHZGk",
+                         "https://www.youtube.com/watch?v=pulqSbbM7hE"
+                         ];
+       
+       if(videoLinks[type-1].length != 0){ 
+         $("#videoLink"). attr("href", videoLinks[type-1]);
+         $('#video-button').show();
+       }
+       else{
+         $('#video-button').hide();
+       }
+       
+       var equation = "";
+       var answer = "";
+       var flip = false; // do we need to flip the inequality?
+       var eq; // equation array
+       var a = ""; var b = ""; var c = ""; var d = ""; var e = ""; var f = ""; var g = ""; var h = ""; var x = "";
+       $("#generatedEquation").html("");
+       $("#answer").html("");
+       
+       switch(type) {
+           // One-step
+           case 1: 
+           
+           switch(random(0,2)){
+               
+              // ax = b 
+              case 0:
+              x = non_zero_random(-10,10,rat);
+              a = non_zero_random(-10,10,rat);
+              b = formatDec((x*a));
+              if(a < 0){ flip = true;}
+              eq = equationSwap(a+letter,b,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+              
+              // a + x = b
+              case 1:
+              x = non_zero_random(-10,10,rat);
+              a = non_zero_random(-10,10,rat);
+              b = formatDec((x+a));
+              eq = equationSwap( mix([a,letter]),b,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+              
+              // x/a = b
+              case 2:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-10,10,rat);
+              x = formatDec((a*b));
+              if(a < 0){ flip = true;}
+              eq = equationSwap( "\\cfrac{"+letter+"}{"+a+"}",b,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+           
+           }
+           break;
+           
+           // Two-step
+           case 2:
+             
+              switch(random(0,1)){
+              
+              // ax + b = c
+              case 0:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-10,10,rat);
+              x = non_zero_random(-10,10,rat);
+              c = Math.round((a*x+b)*10000)/10000;
+              if(a < 0){ flip = true;}
+              eq = equationSwap( mix([a+letter,b]),c,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+              
+              // x/a + b = c
+              case 1:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-10,10,rat);
+              do{c = non_zero_random(-10,10,rat);}while(b == c);
+              x = Math.round(((c-b)*a)*10000)/10000;
+              if(a < 0){ flip = true;}
+              eq = equationSwap( mix(["\\cfrac{"+letter+"}{"+ a+"}",b]),c,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x; 
+              break;
+           }
+              
+           break;
+		  
+          // Combining Like Terms
+           case 3:
+           switch(random(0,3)){ 
+              
+              // ax + b + cx = d
+              case 0:
+              a = random(2,15,rat);
+              x = non_zero_random(-12,12,rat);
+              b = non_zero_random(-15,15,rat);
+              do{c = random(2,10,rat);} while(c == a); // avoids infinite solutions
+              d = formatDec(a*x+b-c*x);
+              if((a-c) < 0){ flip = true;}
+              eq = equationSwap(mix([a+letter,b,-1*c+letter]),d,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x; 
+              break;
+              
+              // ax + b + cx + e = d
+              case 1:
+              a = random(2,15,rat);
+              x = non_zero_random(-12,12,rat);
+              b = non_zero_random(-15,15,rat);
+              do{c = random(2,10,rat);} while(c == a); // avoids infinite solutions
+              e = random(2,10,rat);
+              d = formatDec(a*x+b-c*x+e);  
+              if((a-c) < 0){ flip = true;}
+              eq = equationSwap(mix([a+letter,b,-1*c+letter,e]),d,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x;
+              break;
+
+              // ax + b + cx = d + e
+              case 2:
+              a = random(2,15,rat);
+              x = non_zero_random(-12,12,rat);
+              b = non_zero_random(-15,15,rat);
+              e = non_zero_random(-15,15,rat);
+              do{c = random(2,10,rat);} while(c == a); // avoids infinite solutions
+              d = formatDec(a*x+b-c*x-e);
+              if((a-c) < 0){ flip = true;}
+              eq = equationSwap(mix([a+letter,b,-1*c+letter]),d+" + "+e,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x; 
+              break;
+
+              // ax + b + cx + e = d + f
+              case 3:
+              a = random(2,15,rat);
+              x = non_zero_random(-12,12,rat);
+              b = non_zero_random(-15,15,rat);
+              f = non_zero_random(-15,15,rat);
+              do{c = random(2,10,rat);} while(c == a); // avoids infinite solutions
+              e = random(2,10,rat);
+              d = formatDec(a*x+b-c*x+e-f);  
+              if((a-c) < 0){ flip = true;}
+              eq = equationSwap(mix([a+letter,b,-1*c+letter,e]),d+" + "+f,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x;
+              break;
+              
+           }
+            
+           break;
+
+           // Distributing
+           case 4: 
+           
+              // a(cx + b) = d
+              do{a = non_zero_random(-10,10,rat);} while(a==1);
+              b = non_zero_random(-15,15,rat);
+              c = non_zero_random(-15,15,rat);
+              x = non_zero_random(-15,15,rat);
+              d = Math.round((a*(c*x+b))*10000)/10000;
+              if((a*c) < 0){ flip = true;}
+              eq = equationSwap( a+"("+mix([c+letter,b])+")",d,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x; 
+
+           break;
+		   
+           // Distributing and Combining (7th grade)
+           case 5: 
+           
+             switch(random(0,2)){
+              
+              // a(cx+b)+e=d
+              case 0:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-15,15,rat);
+              c = non_zero_random(-15,15,rat);
+              x = random(-8,8,rat);
+              e = non_zero_random(-10,10,rat);
+              d = formatDec(a*(c*x+b)+e);
+              if((a*c) < 0){ flip = true;}
+              eq = equationSwap( mix([a+"("+mix([c+letter,b])+")",e]),d,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+              
+              // ex + a(cx+b)=d
+              case 1:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-15,15,rat);
+              c = non_zero_random(-15,15,rat);
+              x = random(-8,8,rat);
+              do{e = non_zero_random(-10,10,rat);} while(e == (-1*a*c)); // to prevent infinite solutions       
+              d = formatDec(a*(c*x+b)+(e*x));
+              equation = e+"x + "+a+"("+c+"x + "+b+") = "+d; 
+              if((a*c + e) < 0){ flip = true;}
+              eq = equationSwap( mix([e+letter,a+"("+mix([c+letter,b])+")"]),d,flip);
+              equation = eq[0]; flip = eq[1]; 
+              answer = x; 
+              break;
+              
+              // ex + a(cx+b) + f =d
+              case 2:
+              a = non_zero_random(-10,10,rat);
+              b = non_zero_random(-15,15,rat);
+              c = non_zero_random(-15,15,rat);
+              x = random(-8,8,rat);
+              f = non_zero_random(-5,5,rat);
+              do{e = non_zero_random(-10,10,rat);} while(e == (-1*a*c)); // to prevent infinite solutions
+              d = formatDec(a*(c*x+b)+(e*x)+f);
+              if((a*c + e) < 0){ flip = true;}
+              eq = equationSwap( mix([e+letter,a+"("+mix([c+letter,b])+")",f]),d,flip);
+              equation = eq[0]; flip = eq[1];
+              answer = x; 
+              break;
+    
+           }
+           
+           break;
+           
+           // Variables on Both Sides
+           case 6: 
+             
+           do{
+              c = non_zero_random(-5,5,rat);
+              b = non_zero_random(-10,10,rat);
+              x = non_zero_random(-10,10,rat);
+              a = formatDec(non_zero_random(-5,5,rat)+c); // avoids infinite solutions
+              d = Math.round((a*x+b-c*x)*10000)/10000;
+             } while (d === 0 || a === 0);
+            if(a < c){ flip = true;}
+            eq = equationSwap(mix([a+letter,b]),mix([c+letter,d]),flip);
+            equation = eq[0]; flip = eq[1];
+            answer = x; 
+                     
+           break;
+		   
+           // Variables on Both Sides with Combining
+           
+           case 7:  
+             switch(random(0,2)){
+               
+               // a + bx = cx + d + ex + f
+               case 0:
+                x = non_zero_random(-10,10,rat);
+                a = non_zero_random(-10,10,rat);
+                do{
+                  b = non_zero_random(-10,10,rat);
+                  c = non_zero_random(-10,10,rat);
+                  e = non_zero_random(-10,10,rat);
+                } while(b == (c+e)); // to avoid infinite solutions
+                d = non_zero_random(-10,10,rat);
+                f = Math.round((a+b*x-(c*x+d+e*x))*10000)/10000;
+                
+               if(b < (c+e)){ flip = true;}
+               eq = equationSwap( mix([a,b+letter]),mix([c+letter,d,e+letter,f]),flip);
+               equation = eq[0]; flip = eq[1];
+               answer = x; 
+               break;
+               
+               // a + bx + d = cx + f + ex
+               case 1:
+                x = non_zero_random(-10,10,rat);
+                a = non_zero_random(-10,10,rat);
+                do{
+                  b = non_zero_random(-10,10,rat);
+                  c = non_zero_random(-10,10,rat);
+                  e = non_zero_random(-10,10,rat);
+                } while(b == (c+e)); // to avoid infinite solutions
+                d = non_zero_random(-10,10,rat);           
+                f = Math.round((a+b*x+d-(c*x+e*x))*10000)/10000;
+                
+               if(b < (c+e)){ flip = true;}
+               eq = equationSwap( mix([a,b+letter,d]),mix([c+letter,f,e+letter]),flip);
+               equation = eq[0]; flip = eq[1];
+               answer = x; 
+               break;
+               
+               // bx + d + ax = cx + f + ex
+               case 2:
+                x = non_zero_random(-10,10,rat);
+                do{
+                  a = non_zero_random(-10,10,rat);
+                  b = non_zero_random(-10,10,rat);
+                  c = non_zero_random(-10,10,rat);
+                  e = non_zero_random(-10,10,rat);
+                } while((a+b) == (c+e)); // to avoid infinite solutions  
+                d = non_zero_random(-10,10,rat);
+                f = Math.round((a*x+b*x+d-(c*x+e*x))*10000)/10000;
+                
+               if((b+a) < (c+e)){ flip = true;}
+               eq = equationSwap( mix([b+letter,d,a+letter]),mix([c+letter,f,e+letter]),flip);
+               equation = eq[0]; flip = eq[1];
+               answer = x; 
+               break;
+           
+             }
+           break;
+           
+           // Variables on Both Sides with Distributing
+           case 8: 
+                // ex + c = a(dx + b)
+                b = random(-10,10,rat);
+                x = non_zero_random(-10,10,rat);
+                do{
+                  a = non_zero_random(-5,5,rat);
+                  d = non_zero_random(-10,10,rat);
+                  e = non_zero_random(-10,10,rat);
+                } while((a*d) == e); // avoid infinte solutions               
+                c = Math.round((a*(d*x+b)-(e*x))*10000)/10000;
+                if((a*d) > e){ flip = true;}
+                eq = equationSwap( mix([e+letter,c]),a+"("+mix([d+letter,b])+")",flip);
+                equation = eq[0]; flip = eq[1];
+                answer = x; 
+
+           break;
+           
+           // Distributing, variables on both sides, fractions
+           case 9: 
+             
+             // e/a(ax+b)= cx+d
+             x = non_zero_random(-10,10,rat);
+             a = random(2,10,false);
+             b = Math.round(random(2,5,rat)*a*10000)/10000;
+             e = random(1,a-1,false);
+             do{ c = non_zero_random(-10,10,rat); } while(c == e); // prevents infinite solutions
+             
+             d = Math.round(((e/a)*(a*x+b)-(c*x))*100000)/100000;
+             if(e < c){ flip = true;}
+             eq = equationSwap( simplifyFrac(e,a)+"("+mix([a+letter,b])+")",mix([c+letter,d]),flip);
+             equation = eq[0]; flip = eq[1];
+             answer = x;
+  
+           break;
+           
+           // Difficult Mult-Step Equation
+           case 10: 
+             switch(random(0,1)){
+                // a + b(cx+d) = e+f(gx+h)
+                case 0:
+                do{
+                x = non_zero_random(-10,10,rat);
+                b = non_zero_random(-10,10,rat);
+                c = non_zero_random(-10,10,rat);
+                d = non_zero_random(-10,10,rat);
+                e = non_zero_random(-10,10,rat);
+                f = non_zero_random(-10,10,rat);
+                g = non_zero_random(-10,10,rat);
+                h = non_zero_random(-10,10,rat);
+                a = Math.round(((e+f*(g*x+h))-(b*(c*x+d)))*10000)/10000;
+                
+                if((b*c) < (f*g)){ flip = true;}
+                eq = equationSwap( mix([a,b+"("+mix([c+letter,d])+")"]),mix([e,f+"("+mix([g+letter,h])+")"]),flip);
+                equation = eq[0]; flip = eq[1];
+                answer = x; 
+                
+                } while ((b*c) == (f*g)); // prevents infinite solutions
+                break;
+                
+                // a(bx+c)+d(ex+f)=gx+h
+                case 1:
+                do{
+                x = non_zero_random(-10,10,rat);
+                a = non_zero_random(-10,10,rat);
+                b = non_zero_random(-10,10,rat);
+                c = non_zero_random(-10,10,rat);
+                d = non_zero_random(-10,10,rat);
+                e = non_zero_random(-10,10,rat);
+                f = non_zero_random(-10,10,rat);
+                g = non_zero_random(-10,10,rat);
+                h = Math.round((a*(b*x+c)+d*(e*x+f)-g*x)*10000)/10000;
+                
+                if(((a*b)+(d*e)) < g){ flip = true;}
+                eq = equationSwap(mix([a+"("+mix([b+letter,c])+")",d+"("+mix([e+letter,f])+")"]),mix([g+letter,h]),flip);
+                equation = eq[0]; flip = eq[1];
+                answer = x;
+  
+                } while ((a*b+d*e) == g); // prevents infinite solutions
+                break;
+             }
+           
+           break;
+           
+       }
+       answer = letter+" = "+answer;
+       
+       if(inequality){
+          var ineq = genInequality();
+          equation = equation.replace("=",ineq.sym);
+          if(flip){
+             answer = answer.replace("=",ineq.opp); 
+          }
+          else{
+             answer = answer.replace("=",ineq.sym); 
+          }
+       }
+              
+        
+       $("#generatedEquation").html("\\("+doublesigns(equation)+"\\)");
+       $("#answer").html("\\("+answer+"\\)");
+       
+       renderMathInElement(document.body);
+       
+       //MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,"generatedEquation"]);
+       //MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,"answer"]);
+	}
+</script>

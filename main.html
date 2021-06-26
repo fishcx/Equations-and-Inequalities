@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="author" content="Tom Fisher FishMath.com">
+    <title>Equations & Inequalities</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1hHnc5a1nl-FpDmmVsh2HDOi5eHhIAzgn">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+   <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
+  
+  <!-- bootstrap toggle min saved in drive to avoid webfilter issues -->
+  <!-- <script src="https://drive.google.com/uc?export=view&id=1avtHaXT6Y9eWP-J_ISbS7NAo4ePI12-g"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+  </head>
+  <body>
+		<!--<h2>Equations & Inequalities</h2><br>-->
+		<div>
+		 Type: 
+         <select name="type" id="type" class="changeItem">
+            <option value="any">All</option>
+            <option value=1>One-Step [6th grade]</option>
+            <option value=2>Two-Step [7th grade]</option> 
+            <option value=3>Combining Like Terms [7th]</option>
+            <option value=4>Distributing [7th]</option>
+            <option value=5>Distributing and Combining [7th]</option>
+            <option value=6>Variables on Both Sides [8th]</option>
+            <option value=7>Var. on Both Sides with Combining [8th]</option>
+            <option value=8>Var. on Both Sides with Distributing [8th]</option>
+            <option value=9>Var. on Both Sides with Dist. and Fractions [8th]</option>
+            <option value=10>Var. on Both Sides with Dist. and Combining [8th-A1]</option>
+         </select><input type="button" value="Generate" id="generate" class="btn btn-main">
+         
+           <br> 
+           <input type="checkbox" data-toggle="toggle" data-on="Decimals" data-off="Integers" id="dec-toggle" name="dec-toggle" data-offstyle="btn btn-main btn-toggle btn-sm" data-onstyle="btn btn-info btn-toggle btn-sm" class="changeItem">            
+           <input type="checkbox" data-toggle="toggle" data-on="Inequality" data-off="Equation" id="ineq-toggle" name="ineq-toggle" data-offstyle="btn btn-main btn-toggle btn-sm" data-onstyle="btn btn-info btn-toggle btn-sm" class="changeItem">               
+           <input type="checkbox" data-toggle="toggle" data-on="Any Var" data-off="Only X" id="var-toggle" name="var-toggle" data-offstyle="btn btn-main btn-toggle btn-sm" data-onstyle="btn btn-info btn-toggle btn-sm" class="changeItem">       
+           <br><br>
+           <div id="generatedEquation" style="text-indent: 30px;"></div>   
+  <br>
+        <input type="button" value="Show Answer" id="show-answer" class="btn btn-main"><a id="videoLink" target="_blank" herf=""><input type="button" value="&#9658; Watch Video" id="video-button" class="btn btn-success"></a>
+       <br><br>
+		<div id="answer" style="text-indent: 30px;"></div>
+        </div>
+  </body>
+</html>
+<?!= include('script'); ?> 
+<?!= include('toggle'); ?> 
+<?!= include('helperscript'); ?> 
