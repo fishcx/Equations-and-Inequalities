@@ -78,7 +78,8 @@
                          "https://www.youtube.com/watch?v=w2wJsgpZSWo",
                          "https://www.youtube.com/watch?v=4utHgqjYonU",
                          "https://www.youtube.com/watch?v=o0EqTOYHZGk",
-                         "https://www.youtube.com/watch?v=pulqSbbM7hE"
+                         "https://www.youtube.com/watch?v=pulqSbbM7hE",
+                         "https://www.youtube.com/watch?v=QnLhMNfq0PY"
                          ];
        
        if(videoLinks[type-1].length != 0){ 
@@ -167,6 +168,15 @@
               answer = x; 
               break;
            }
+              
+           break;
+
+           // Two-step in context
+          case 11:
+            var newContextTwoStep = generateTwoStepInContext();
+            letter = newContextTwoStep.variable;
+            equation = "\\)"+newContextTwoStep.problem+"\\(";
+            answer = newContextTwoStep.equation+"\\), \\("+letter+"="+newContextTwoStep.answer; 
               
            break;
 		  
@@ -467,7 +477,7 @@
            break;
            
        }
-       answer = letter+" = "+answer;
+       if(type != 11){ answer = letter+" = "+answer; }
        
        if(inequality){
           var ineq = genInequality();
@@ -489,4 +499,197 @@
        //MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,"generatedEquation"]);
        //MathJax.Hub.queue.Push(["Typeset",MathJax.Hub,"answer"]);
 	}
+
+  // Helper function for generatePropWord
+function generateName() {
+    var options = [
+        { name: "John", pronoun: "he" },
+        { name: "Jane", pronoun: "she" },
+        { name: "Bill", pronoun: "he" },
+        { name: "Alex", pronoun: "she" },
+        { name: "Jennifer", pronoun: "she" },
+        { name: "Skyler", pronoun: "she" },
+        { name: "Michael", pronoun: "he" },
+        { name: "Sarah", pronoun: "she" },
+        { name: "Kim", pronoun: "she" },
+        { name: "Jacob", pronoun: "he" },
+        { name: "Jessica", pronoun: "she" },
+        { name: "Antonio", pronoun: "he" },
+        { name: "Anthony", pronoun: "he" },
+        { name: "Rebecca", pronoun: "she" },
+        { name: "Jen", pronoun: "she" },
+        { name: "Jeff", pronoun: "he" },
+        { name: "Liam", pronoun: "he" },
+        { name: "Emma", pronoun: "she" },
+        { name: "Noah", pronoun: "he" },
+        { name: "Olivia", pronoun: "she" },
+        { name: "Ethan", pronoun: "he" },
+        { name: "Ava", pronoun: "she" },
+        { name: "Logan", pronoun: "he" },
+        { name: "Isabella", pronoun: "she" },
+        { name: "Lucas", pronoun: "he" },
+        { name: "Mia", pronoun: "she" },
+        { name: "Mason", pronoun: "he" },
+        { name: "Harper", pronoun: "she" },
+        { name: "Elijah", pronoun: "he" },
+        { name: "Chloe", pronoun: "she" },
+        { name: "Aiden", pronoun: "he" },
+        { name: "Lily", pronoun: "she" }
+    ];
+
+    var chosen = options[random(0, options.length - 1)];
+    return chosen;
+}
+
+
+  function generateTwoStepInContext() {
+    const scenarioNum = random(1, 10);
+    const { name, pronoun } = generateName();
+
+    let problem = "";
+    let equation = "";
+    let answer = 0;
+    let variable = ""; // context-appropriate
+
+    switch (scenarioNum) {
+        case 1: {
+            variable = "t"; // tickets
+            const t = random(2, 10);
+            const costPerTicket = random(8, 15);
+            const serviceFee = random(2, 6);
+            const total = costPerTicket * t + serviceFee;
+
+            problem = `${name} bought \\(${variable}\\) tickets to a concert for $${costPerTicket} each and paid a $${serviceFee} service fee. The total cost was $${total}. How many tickets did ${pronoun} buy?`;
+            equation = `${costPerTicket}${variable} + ${serviceFee} = ${total}`;
+            answer = t;
+            break;
+        }
+
+        case 2: {
+            variable = "m"; // months
+            const m = random(2, 12);
+            const monthlyRate = random(10, 25);
+            const signupFee = random(20, 50);
+            const total = monthlyRate * m + signupFee;
+
+            problem = `${name} signed up for a gym that charges $${monthlyRate}/month plus a $${signupFee} signup fee. If ${pronoun} paid $${total} total, how many months, \\(${variable}\\), did ${pronoun} stay a member?`;
+            equation = `${monthlyRate}${variable} + ${signupFee} = ${total}`;
+            answer = m;
+            break;
+        }
+
+        case 3: {
+            variable = "b"; // books
+            const b = random(2, 6);
+            const pagesPerBook = random(100, 200);
+            const extraPages = random(20, 50);
+            const totalPages = pagesPerBook * b + extraPages;
+
+            problem = `${name} read \\(${variable}\\) number of books, each with ${pagesPerBook} pages, and also read ${extraPages} pages of articles. Altogether, ${pronoun} read ${totalPages} pages. How many books did ${pronoun} read?`;
+            equation = `${pagesPerBook}${variable} + ${extraPages} = ${totalPages}`;
+            answer = b;
+            break;
+        }
+
+        case 4: {
+            variable = "h"; // hours
+            const h = random(3, 8);
+            const hourlyRate = random(12, 20);
+            const bonus = random(10, 25);
+            const totalPay = hourlyRate * h + bonus;
+
+            problem = `${name} worked a certain number of hours, \\(${variable}\\), and earned $${hourlyRate} per hour, plus a $${bonus} bonus. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} earned $${totalPay} in total. How many hours did ${pronoun} work?`;
+            equation = `${hourlyRate}${variable} + ${bonus} = ${totalPay}`;
+            answer = h;
+            break;
+        }
+
+        case 5: {
+            variable = "n"; // items
+            const n = random(2, 6);
+            const itemCost = random(4, 12);
+            const discount = random(5, 15);
+            const total = itemCost * n - discount;
+
+            problem = `${name} bought \\(${variable}\\) items at $${itemCost} each and used a $${discount} discount. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} paid $${total} in total. How many items did ${pronoun} buy?`;
+            equation = `${itemCost}${variable} - ${discount} = ${total}`;
+            answer = n;
+            break;
+        }
+
+        case 6: {
+            variable = "s"; // shirts
+            const s = random(2, 7);
+            const pricePerShirt = random(10, 25);
+            const tax = random(3, 8);
+            const totalCost = pricePerShirt * s + tax;
+
+            problem = `${name} bought \\(${variable}\\) shirts for $${pricePerShirt} each and paid $${tax} in tax. The total was $${totalCost}. How many shirts did ${pronoun} buy?`;
+            equation = `${pricePerShirt}${variable} + ${tax} = ${totalCost}`;
+            answer = s;
+            break;
+        }
+
+        case 7: {
+            variable = "d"; // distance (miles)
+            const d = random(3, 10);
+            const costPerMile = random(2, 4);
+            const baseFare = random(5, 10);
+            const totalFare = costPerMile * d + baseFare;
+
+            problem = `${name} took a taxi that charges $${costPerMile} per mile plus a base fare of $${baseFare}. If ${pronoun} paid $${totalFare} in total, how many miles, \\(${variable}\\), did ${pronoun} travel?`;
+            equation = `${costPerMile}${variable} + ${baseFare} = ${totalFare}`;
+            answer = d;
+            break;
+        }
+
+        case 8: {
+            variable = "p"; // pens
+            const p = random(2, 10);
+            const penPrice = random(1, 3);
+            const notebookPrice = random(5, 10);
+            const totalCost = penPrice * p + notebookPrice;
+
+            problem = `${name} bought \\(${variable}\\) pens at $${penPrice} each and one notebook for $${notebookPrice}. The total was $${totalCost}. How many pens did ${pronoun} buy?`;
+            equation = `${penPrice}${variable} + ${notebookPrice} = ${totalCost}`;
+            answer = p;
+            break;
+        }
+
+        case 9: {
+            variable = "h"; // number of hours worked
+            const hourlyRate = random(9,15);
+            const spent = random(20,40); // spent less than 45, min amount earned
+            const h = random(6,10);
+            const amountLeft = hourlyRate*h-spent;
+
+            problem = `${name} earns $${hourlyRate} per hour working at a grocery store. One day, ${pronoun} spent $${spent} of what ${pronoun} had earned on lunch and had $${amountLeft} left. How many hours, \\(${variable}\\), did ${name} work?`
+            equation = `${hourlyRate}${variable} - ${spent} = ${amountLeft}`;
+            answer = h;
+            break;
+        }
+
+        case 10: {
+            variable = "b"; // bracelets
+            const bCost = random(5,15); // cost per bracelet
+            const bNum = random(5,20); // num of bracelets sold
+            const spent = random(5,20); // spent less than 25, min amount earned
+            const b = random(6,10);
+            const amountLeft = bCost*bNum-spent;
+
+            problem = `${name} is selling handmade bracelets for $${bCost} each. After ${pronoun} spends $${spent} to cover the cost of materials, ${pronoun} made $${amountLeft} in profit.  How many bracelets, \\(${variable}\\), did ${pronoun} sell?`
+            equation = `${bCost}${variable} - ${spent} = ${amountLeft}`;
+            answer = b;
+            break;
+        }
+
+        default:
+            problem = "No scenario selected.";
+            equation = "";
+            answer = 0;
+            variable = "";
+    }
+
+    return { problem, equation, answer,variable };
+}
 </script>
