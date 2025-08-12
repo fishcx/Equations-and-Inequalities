@@ -554,10 +554,10 @@ function generateName() {
     switch (scenarioNum) {
         case 1: {
             variable = "t"; // tickets
-            const t = random(2, 10);
-            const costPerTicket = random(8, 15);
-            const serviceFee = random(2, 6);
-            const total = costPerTicket * t + serviceFee;
+            var t = random(2, 10);
+            var costPerTicket = random(8, 15);
+            var serviceFee = random(2, 6);
+            var total = costPerTicket * t + serviceFee;
 
             problem = `${name} bought \\(${variable}\\) tickets to a concert for $${costPerTicket} each and paid a $${serviceFee} service fee. The total cost was $${total}. How many tickets did ${pronoun} buy?`;
             equation = `${costPerTicket}${variable} + ${serviceFee} = ${total}`;
@@ -567,10 +567,10 @@ function generateName() {
 
         case 2: {
             variable = "m"; // months
-            const m = random(2, 12);
-            const monthlyRate = random(10, 25);
-            const signupFee = random(20, 50);
-            const total = monthlyRate * m + signupFee;
+            var m = random(2, 12);
+            var monthlyRate = random(10, 25);
+            var signupFee = random(20, 50);
+            var total = monthlyRate * m + signupFee;
 
             problem = `${name} signed up for a gym that charges $${monthlyRate}/month plus a $${signupFee} signup fee. If ${pronoun} paid $${total} total, how many months, \\(${variable}\\), did ${pronoun} stay a member?`;
             equation = `${monthlyRate}${variable} + ${signupFee} = ${total}`;
@@ -580,10 +580,10 @@ function generateName() {
 
         case 3: {
             variable = "b"; // books
-            const b = random(2, 6);
-            const pagesPerBook = random(100, 200);
-            const extraPages = random(20, 50);
-            const totalPages = pagesPerBook * b + extraPages;
+            var b = random(2, 6);
+            var pagesPerBook = random(100, 200);
+            var extraPages = random(20, 50);
+            var totalPages = pagesPerBook * b + extraPages;
 
             problem = `${name} read \\(${variable}\\) number of books, each with ${pagesPerBook} pages, and also read ${extraPages} pages of articles. Altogether, ${pronoun} read ${totalPages} pages. How many books did ${pronoun} read?`;
             equation = `${pagesPerBook}${variable} + ${extraPages} = ${totalPages}`;
@@ -593,10 +593,10 @@ function generateName() {
 
         case 4: {
             variable = "h"; // hours
-            const h = random(3, 8);
-            const hourlyRate = random(12, 20);
-            const bonus = random(10, 25);
-            const totalPay = hourlyRate * h + bonus;
+            var h = random(3, 8);
+            var hourlyRate = random(12, 20);
+            var bonus = random(10, 25);
+            var totalPay = hourlyRate * h + bonus;
 
             problem = `${name} worked a certain number of hours, \\(${variable}\\), and earned $${hourlyRate} per hour, plus a $${bonus} bonus. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} earned $${totalPay} in total. How many hours did ${pronoun} work?`;
             equation = `${hourlyRate}${variable} + ${bonus} = ${totalPay}`;
@@ -606,10 +606,10 @@ function generateName() {
 
         case 5: {
             variable = "n"; // items
-            const n = random(2, 6);
-            const itemCost = random(4, 12);
-            const discount = random(5, 15);
-            const total = itemCost * n - discount;
+            var n = random(2, 6);
+            var itemCost = random(4, 12);
+            var discount = random(5, 15);
+            var total = itemCost * n - discount;
 
             problem = `${name} bought \\(${variable}\\) items at $${itemCost} each and used a $${discount} discount. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} paid $${total} in total. How many items did ${pronoun} buy?`;
             equation = `${itemCost}${variable} - ${discount} = ${total}`;
@@ -619,10 +619,10 @@ function generateName() {
 
         case 6: {
             variable = "s"; // shirts
-            const s = random(2, 7);
-            const pricePerShirt = random(10, 25);
-            const tax = random(3, 8);
-            const totalCost = pricePerShirt * s + tax;
+            var s = random(2, 7);
+            var pricePerShirt = random(10, 25);
+            var tax = random(3, 8);
+            var totalCost = pricePerShirt * s + tax;
 
             problem = `${name} bought \\(${variable}\\) shirts for $${pricePerShirt} each and paid $${tax} in tax. The total was $${totalCost}. How many shirts did ${pronoun} buy?`;
             equation = `${pricePerShirt}${variable} + ${tax} = ${totalCost}`;
@@ -632,10 +632,10 @@ function generateName() {
 
         case 7: {
             variable = "d"; // distance (miles)
-            const d = random(3, 10);
-            const costPerMile = random(2, 4);
-            const baseFare = random(5, 10);
-            const totalFare = costPerMile * d + baseFare;
+            var d = random(3, 10);
+            var costPerMile = random(2, 4);
+            var baseFare = random(5, 10);
+            var totalFare = costPerMile * d + baseFare;
 
             problem = `${name} took a taxi that charges $${costPerMile} per mile plus a base fare of $${baseFare}. If ${pronoun} paid $${totalFare} in total, how many miles, \\(${variable}\\), did ${pronoun} travel?`;
             equation = `${costPerMile}${variable} + ${baseFare} = ${totalFare}`;
@@ -645,10 +645,10 @@ function generateName() {
 
         case 8: {
             variable = "p"; // pens
-            const p = random(2, 10);
-            const penPrice = random(1, 3);
-            const notebookPrice = random(5, 10);
-            const totalCost = penPrice * p + notebookPrice;
+            var p = random(2, 10);
+            var penPrice = random(1, 3);
+            var notebookPrice = random(5, 10);
+            var totalCost = penPrice * p + notebookPrice;
 
             problem = `${name} bought \\(${variable}\\) pens at $${penPrice} each and one notebook for $${notebookPrice}. The total was $${totalCost}. How many pens did ${pronoun} buy?`;
             equation = `${penPrice}${variable} + ${notebookPrice} = ${totalCost}`;
@@ -658,10 +658,10 @@ function generateName() {
 
         case 9: {
             variable = "h"; // number of hours worked
-            const hourlyRate = random(9,15);
-            const spent = random(20,40); // spent less than 45, min amount earned
-            const h = random(6,10);
-            const amountLeft = hourlyRate*h-spent;
+            var hourlyRate = random(9,15);
+            var spent = random(20,40); // spent less than 45, min amount earned
+            var h = random(6,10);
+            var amountLeft = hourlyRate*h-spent;
 
             problem = `${name} earns $${hourlyRate} per hour working at a grocery store. One day, ${pronoun} spent $${spent} of what ${pronoun} had earned on lunch and had $${amountLeft} left. How many hours, \\(${variable}\\), did ${name} work?`
             equation = `${hourlyRate}${variable} - ${spent} = ${amountLeft}`;
@@ -671,11 +671,11 @@ function generateName() {
 
         case 10: {
             variable = "b"; // bracelets
-            const bCost = random(5,15); // cost per bracelet
-            const bNum = random(5,20); // num of bracelets sold
-            const spent = random(5,20); // spent less than 25, min amount earned
-            const b = random(6,10);
-            const amountLeft = bCost*bNum-spent;
+            var bCost = random(5,15); // cost per bracelet
+            var bNum = random(5,20); // num of bracelets sold
+            var spent = random(5,20); // spent less than 25, min amount earned
+            var b = random(6,10);
+            var amountLeft = bCost*bNum-spent;
 
             problem = `${name} is selling handmade bracelets for $${bCost} each. After ${pronoun} spends $${spent} to cover the cost of materials, ${pronoun} made $${amountLeft} in profit.  How many bracelets, \\(${variable}\\), did ${pronoun} sell?`
             equation = `${bCost}${variable} - ${spent} = ${amountLeft}`;
