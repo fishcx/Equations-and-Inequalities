@@ -598,7 +598,7 @@ function generateName() {
             var bonus = random(10, 25);
             var totalPay = hourlyRate * h + bonus;
 
-            problem = `${name} worked a certain number of hours, \\(${variable}\\), and earned $${hourlyRate} per hour, plus a $${bonus} bonus. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} earned $${totalPay} in total. How many hours did ${pronoun} work?`;
+            problem = `${name} worked \\(${variable}\\) hours and earned $${hourlyRate} per hour, plus a $${bonus} bonus. ${pronoun.charAt(0).toUpperCase() + pronoun.slice(1)} earned $${totalPay} in total. How many hours did ${pronoun} work?`;
             equation = `${hourlyRate}${variable} + ${bonus} = ${totalPay}`;
             answer = h;
             break;
@@ -677,7 +677,7 @@ function generateName() {
             var b = random(6,10);
             var amountLeft = bCost*bNum-spent;
 
-            problem = `${name} is selling handmade bracelets for $${bCost} each. After ${pronoun} spends $${spent} to cover the cost of materials, ${pronoun} made $${amountLeft} in profit.  How many bracelets, \\(${variable}\\), did ${pronoun} sell?`
+            problem = `${name} sells handmade bracelets for $${bCost} each. After ${pronoun} spent $${spent} to cover the cost of materials, ${pronoun} made $${amountLeft} in profit.  How many bracelets, \\(${variable}\\), did ${pronoun} sell?`
             equation = `${bCost}${variable} - ${spent} = ${amountLeft}`;
             answer = b;
             break;
