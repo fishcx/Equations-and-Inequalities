@@ -25,7 +25,7 @@
 
         var type;
         // handles the formatting for selecting any type
-        if($("#type").val()=="any"){type = random(1,11);}
+        if($("#type").val()=="any"){type = random(1,12);}
         else{type = parseInt($("#type").val())}
         
         // default 
@@ -79,7 +79,8 @@
                          "https://www.youtube.com/watch?v=4utHgqjYonU",
                          "https://www.youtube.com/watch?v=o0EqTOYHZGk",
                          "https://www.youtube.com/watch?v=pulqSbbM7hE",
-                         "https://www.youtube.com/watch?v=QnLhMNfq0PY"
+                         "https://www.youtube.com/watch?v=QnLhMNfq0PY",
+                         ""
                          ];
        
        if(videoLinks[type-1].length != 0){ 
@@ -475,9 +476,92 @@
              }
            
            break;
-           
+
+          // Perimeter Equations
+          case 12:
+
+            var x = random(10,30);
+            var a = random(2,x-1);
+            var b = random(2,10);
+            var squarePerim = 0;
+            var rectPerim = 0;
+            var lengthWords = "";
+            var lengthExp = "";
+            var widthVarOpts = ["w","x","n"];
+            var widthVar = widthVarOpts[random(0,widthVarOpts.length-1)];
+
+            // side length
+            var sideOption = random(1,5);
+            switch(5){
+
+              // ax
+              case 1:
+              lengthWords = `${a} times `;
+              lengthExp = `${a}${widthVar}`;
+              squarePerim = a*x*4;
+              rectPerim = 2*(a*x+x);
+              break;
+
+              // a + x
+              case 2:
+              lengthWords = `${a} more than `;
+              lengthExp = `${a}+${widthVar}`;
+              squarePerim = (a+x)*4;
+              rectPerim = 2*(a+2*x);
+              break;
+
+              // x - a
+              case 3:
+              lengthWords = `${a} less than `;
+              lengthExp = `${widthVar} - ${a}`;
+              squarePerim = (x-a)*4;
+              rectPerim = 2*(2*x-a);
+              break;
+
+              // bx + a
+              case 4:
+              lengthWords = `${a} more than ${b} times `;
+              lengthExp = `${b}${widthVar} + ${a}`;
+              squarePerim = (b*x+a)*4;
+              rectPerim = 2*(b*x+a+x);
+              break;
+
+              // bx - a
+              case 5:
+              lengthWords = `${a} less than ${b} times `;
+              lengthExp = `${b}${widthVar} - ${a}`;
+              squarePerim = (b*x-a)*4;
+              rectPerim = 2*(b*x-a+x);
+              break;
+
+            }
+
+            // type
+            var perimNum = random(1,2);
+            var problem = "";
+            var answer = "";
+
+            switch(perimNum){
+               
+               // rectangle 
+               case 1:
+               problem = `The length of a rectangle is ${lengthWords} its width, \\(${widthVar}\\). It has a perimeter of ${rectPerim} cm. Determine the width, \\(${widthVar}\\).`;
+               answer = `${lengthExp}+${lengthExp}+${widthVar}+${widthVar}\=${rectPerim}, ${widthVar} = ${x}`;
+               break;
+              
+               // square
+               case 2:
+               problem = `The length of a square is ${lengthWords} \\(${widthVar}\\). It has a perimeter of ${squarePerim} cm. Determine the value of \\(${widthVar}\\).`;
+               answer = `${lengthExp}+${lengthExp}+${lengthExp}+${lengthExp}\=${squarePerim}, ${widthVar} = ${x}`;
+               break;
+
+            }
+          
+          equation = "\\)"+problem+"\\(";
+
+          break;
        }
-       if(type != 11){ answer = letter+" = "+answer; }
+       if((type != 11) && (type != 12)){ answer = letter+" = "+answer; }
        
        if(inequality){
           var ineq = genInequality();
