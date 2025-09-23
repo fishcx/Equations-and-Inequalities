@@ -28,6 +28,13 @@
         if($("#type").val()=="any"){type = random(1,12);}
         else{type = parseInt($("#type").val())}
         
+        // hide the buttons for context problem types
+        if(type == 11 || type == 12){
+          $('#buttonsDiv').hide();
+        }else{
+          $('#buttonsDiv').show();
+        }
+
         // default 
         var letter = "x";
         
