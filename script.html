@@ -20,16 +20,17 @@
     var letterOptions = ["x","y","z","a","b","c","d","f","g","h","j","k","m","n","p","q","r","v","w"];
     
     var testing = false;
+    
     $('#generate').click(function(){
         if(!testing){$("#answer").hide(); $("#show-answer").val("Show Answer");}
 
         var type;
         // handles the formatting for selecting any type
-        if($("#type").val()=="any"){type = random(1,12);}
+        if($("#type").val()=="any"){type = random(1,13);}
         else{type = parseInt($("#type").val())}
         
         // hide the buttons for context problem types
-        if(type == 11 || type == 12){
+        if(type == 11 || type == 12 || type == 13){
           $('#buttonsDiv').hide();
         }else{
           $('#buttonsDiv').show();
@@ -87,7 +88,8 @@
                          "https://www.youtube.com/watch?v=o0EqTOYHZGk",
                          "https://www.youtube.com/watch?v=pulqSbbM7hE",
                          "https://www.youtube.com/watch?v=QnLhMNfq0PY",
-                         "https://www.youtube.com/watch?v=jjnSy7LniPc"
+                         "https://www.youtube.com/watch?v=jjnSy7LniPc",
+                         "https://www.youtube.com/watch?v=Vs48ZrteZK4"
                          ];
        
        if(videoLinks[type-1].length != 0){ 
@@ -567,8 +569,131 @@
           equation = "\\)"+problem+"\\(";
 
           break;
+
+          // Literal Equations
+          case 13:
+
+            switch(random(0,13)){
+              
+                // Area of triangle solve for b
+                case 0:
+                problem = `Solve for \\(b\\): \\(A = \\frac{1}{2}bh\\)`;
+                answer = "b = \\cfrac{2A}{h}";
+                break;
+
+                // Area of triangle solve for h
+                case 1:
+                problem = `Solve for \\(h\\): \\(A = \\frac{1}{2}bh\\)`;
+                answer = "h = \\cfrac{2A}{b}";
+                break;
+
+                // ax + by = c solve for x
+                case 2:
+                var a = random(3,10);
+                var b = random(3,10);
+                var c = a*b;
+                var d = random(3,10);
+                var e = a*d;
+                var f = random(3,10);
+                var g = a*f;
+                problem = `Solve for \\(x\\):    \\(${a}x + ${g}y = ${c}\\)`;
+                answer = `x = ${b} - ${f}y`;
+                break;
+
+                // ax - by = c solve for x
+                case 3:
+                var a = random(3,10);
+                var b = random(3,10);
+                var c = a*b;
+                var d = random(3,10);
+                var e = a*d;
+                var f = random(3,10);
+                var g = a*f;
+                problem = `Solve for \\(x\\):    \\(${a}x - ${g}y = ${c}\\)`;
+                answer = `x = ${b} + ${f}y`;
+                break;
+
+                // ax + by = c solve for y
+                case 4:
+                var a = random(3,10);
+                var b = random(3,10);
+                var c = a*b;
+                var d = random(3,10);
+                var e = a*d;
+                var f = random(3,10);
+                var g = a*f;
+                problem = `Solve for \\(y\\):    \\(${a}x + ${g}y = ${c}\\)`;
+                answer = `y = ${simplifyFrac(c,g)} - ${simplifyFrac(a,g)}x`;
+                break;
+
+                // ax - by = c solve for y
+                case 5:
+                var a = random(3,10);
+                var b = random(3,10);
+                var c = a*b;
+                var d = random(3,10);
+                var e = a*d;
+                var f = random(3,10);
+                var g = a*f;
+                problem = `Solve for \\(y\\):    \\(${a}x - ${g}y = ${c}\\)`;
+                answer = `y = ${simplifyFrac(a,g)}x - ${simplifyFrac(c,g)}`;
+                break;
+
+                // Volume of a cylinder - solve for h
+                case 6:
+                problem = `Solve for \\(h\\): \\(V = \\pi r^2 h\\)`;
+                answer = `h = \\cfrac{V}{\\pi r^2}`;
+                break;
+
+                // Volume of a cylinder - solve for r
+                case 7:
+                problem = `Solve for \\(r\\): \\(V = \\pi r^2 h\\)`;
+                answer = `r = \\sqrt{\\cfrac{V}{\\pi h}}`;
+                break;
+
+                // Volume of a cone - solve for h
+                case 8:
+                problem = `Solve for \\(h\\): \\(V = \\frac{1}{3}\\pi r^2 h\\)`;
+                answer = `h = \\cfrac{3V}{\\pi r^2}`;
+                break;
+
+                // Volume of a cone - solve for r
+                case 9:
+                problem = `Solve for \\(r\\): \\(V = \\frac{1}{3}\\pi r^2 h\\)`;
+                answer = `r = \\sqrt{\\cfrac{3V}{\\pi h}}`;
+                break;
+
+                // Pythag Theorem - solve for a
+                case 10:
+                problem = `Solve for \\(a\\): \\(a^2 + b^2 = c^2\\)`;
+                answer = `a = \\sqrt{c^2 - b^2}`;
+                break;
+
+                // Pythag Theorem - solve for b
+                case 11:
+                problem = `Solve for \\(b\\): \\(a^2 + b^2 = c^2\\)`;
+                answer = `b = \\sqrt{c^2 - a^2}`;
+                break;
+
+                // Pythag Theorem - solve for c
+                case 12:
+                problem = `Solve for \\(c\\): \\(a^2 + b^2 = c^2\\)`;
+                answer = `c = \\sqrt{a^2 + b^2}`;
+                break;
+
+                // Volume of Sphere - solve for r
+                case 13:
+                problem = `Solve for \\(r\\): \\(V = \\frac{4}{3} \\pi r^3\\)`;
+                answer = `r = \\sqrt[3]{\\cfrac{3V}{4\\pi}}`;
+                break;
+
+            }
+          
+          equation = "\\)"+problem+"\\(";
+          break;
+
        }
-       if((type != 11) && (type != 12)){ answer = letter+" = "+answer; }
+       if((type != 11) && (type != 12) && (type != 13)){ answer = letter+" = "+answer; }
        
        if(inequality){
           var ineq = genInequality();
