@@ -11,7 +11,10 @@ function doGet(e) {
   return output;
  
 }
-
+// Accesses the code from your library and brings it to the main project
+function includeLibrary(filename) {
+  return Sourcelibrary.getCode(filename); 
+}
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename)
       .getContent();

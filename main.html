@@ -4,17 +4,14 @@
     <meta charset="utf-8">
 	<meta name="author" content="Tom Fisher FishMath.com">
     <title>Equations & Inequalities</title>
-    <!-- bootstrap-->
-    <?!= include('bootstrap'); ?> 
-    <?!= include('formatting'); ?>
-    <!--
-    <link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1L5J7FuKENOVb0CsCXXDJJ769v8Jc9o39">
-    <link rel="stylesheet" href="https://drive.google.com/uc?export=view&id=1hHnc5a1nl-FpDmmVsh2HDOi5eHhIAzgn">-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-   <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
-  
-  <!-- bootstrap toggle min saved in drive to avoid webfilter issues -->
-  <!-- <script src="https://drive.google.com/uc?export=view&id=1avtHaXT6Y9eWP-J_ISbS7NAo4ePI12-g"></script> -->
+     
+    <?!= includeLibrary('bootstrap'); ?>
+    <?!= includeLibrary('CSS'); ?>
+    <?!= includeLibrary('formatting'); ?>
+    <?!= includeLibrary('mathjs'); ?>
+    <?!= includeLibrary('plotly'); ?>
+    <?!= includeLibrary('jquery'); ?>
+    <?!= includeLibrary('toggle'); ?>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -58,5 +55,4 @@
   </body>
 </html>
 <?!= include('script'); ?> 
-<?!= include('toggle'); ?> 
 <?!= include('helperscript'); ?> 
