@@ -183,6 +183,7 @@
 
            // Two-step in context
           case 11:
+            inequality = false;
             var newContextTwoStep = generateTwoStepInContext();
             letter = newContextTwoStep.variable;
             equation = "\\)"+newContextTwoStep.problem+"\\(";
@@ -488,7 +489,8 @@
 
           // Perimeter Equations
           case 12:
-
+            inequality = false;
+            
             var x = random(10,30);
             var a = random(2,x-1);
             var b = random(2,10);
@@ -572,6 +574,7 @@
 
           // Literal Equations
           case 13:
+            inequality = false;
 
             switch(random(0,20)){
               
